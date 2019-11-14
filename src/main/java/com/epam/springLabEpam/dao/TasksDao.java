@@ -34,8 +34,8 @@ public interface TasksDao extends JpaRepository<Task, Integer> {
 
     @Modifying(clearAutomatically = true)
     @Transactional
-    @Query(nativeQuery = true, value = "select * from TASK  where userId = :userId")
-    List<Task> findAllByUserId(@Param("userId")int userId);
+    @Query(nativeQuery = true, value = "select * from Task  where user_id = :user_id")
+    List<Task> findAllByUserId(@Param("user_id")int userId);
 
 
 }
