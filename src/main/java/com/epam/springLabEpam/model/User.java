@@ -42,7 +42,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER,
-            cascade = {CascadeType.ALL})
+   @OneToMany(mappedBy = "user", fetch = FetchType.EAGER,
+            cascade = {CascadeType.REMOVE})
     private List<Task> taskList;
 }

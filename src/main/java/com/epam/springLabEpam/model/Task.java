@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -27,7 +29,7 @@ public class Task {
      private boolean isDone;
 
      @ManyToOne
-     @JoinColumn(name = "id", nullable = false)
+     //@JoinColumn(name = "id")
      private User user;
 
      @Column

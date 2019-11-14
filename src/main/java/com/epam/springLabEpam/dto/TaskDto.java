@@ -16,7 +16,7 @@ import java.io.File;
 @AllArgsConstructor
 @Builder
 @Data
-public class TaskDto {
+public class  TaskDto {
     private int id;
     @NotNull
     private String name;
