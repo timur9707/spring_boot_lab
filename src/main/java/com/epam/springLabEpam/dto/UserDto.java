@@ -24,5 +24,4 @@ public class UserDto {
     private String email;
     private String subscription;
     private Role role;
-    private List<TaskDto> tasks;
 }
