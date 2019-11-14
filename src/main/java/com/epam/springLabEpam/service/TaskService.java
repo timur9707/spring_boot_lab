@@ -2,11 +2,9 @@ package com.epam.springLabEpam.service;
 
 import com.epam.springLabEpam.dto.TaskDto;
 import com.epam.springLabEpam.dto.UserDto;
-import com.epam.springLabEpam.model.Task;
 import com.epam.springLabEpam.model.TaskPriority;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.util.List;
 
 public interface TaskService {
@@ -24,5 +22,5 @@ public interface TaskService {
 
     void attachFile(TaskDto task, MultipartFile file);
 
-    List<Task> getUserTasks(int id);
+    List<TaskDto> getUserTasks(int id);
 }

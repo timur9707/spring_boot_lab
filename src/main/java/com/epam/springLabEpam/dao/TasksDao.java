@@ -1,6 +1,7 @@
 package com.epam.springLabEpam.dao;
 
 
+import com.epam.springLabEpam.dto.TaskDto;
 import com.epam.springLabEpam.model.Task;
 import com.epam.springLabEpam.model.TaskPriority;
 import org.springframework.data.domain.Sort;
@@ -10,7 +11,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.File;
 import java.util.List;
 
 public interface TasksDao extends JpaRepository<Task, Integer> {
@@ -32,5 +32,14 @@ public interface TasksDao extends JpaRepository<Task, Integer> {
     @Query("update Task t set t.fileName = :fileName where t.taskId = :taskId")
     void updateFileName(@Param("taskId")int taskId, @Param("fileName")String fileName);
 
+    @Modifying(clearAutomatically = true)
+    @Transactional
+    @Query(nativeQuery = true, value = "select * from TASK  where id = :id")
+    List<Task> findAllByUserId(@Param("id")int id);
+
+    @Modifying(clearAutomatically = true)
+    @Transactional
+    @Query(nativeQuery = true, value = "delete from TASK  where id = :taskId")
+    void deleteById(@Param("taskId")int taskId);
 
 }

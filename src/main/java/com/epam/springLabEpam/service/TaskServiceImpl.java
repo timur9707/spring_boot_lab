@@ -5,29 +5,25 @@ import com.epam.springLabEpam.dao.UsersDao;
 import com.epam.springLabEpam.dto.TaskDto;
 import com.epam.springLabEpam.dto.UserDto;
 import com.epam.springLabEpam.exception.NoSuchTaskException;
-import com.epam.springLabEpam.exception.NoSuchUserException;
 import com.epam.springLabEpam.model.Task;
 import com.epam.springLabEpam.model.TaskPriority;
 import com.epam.springLabEpam.model.User;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.EntityNotFoundException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class TaskServiceImpl implements TaskService {
     private TasksDao tasksDao;
 
-    private String UPLOAD_PATH = "C:\\Intellij Projects\\springLabEpam\\src\\main\\resources\\taskFiles";
+    private String UPLOAD_PATH = "classpath:\\resources\\taskFiles";
     @Autowired
     private UsersDao usersDao;
 
@@ -111,8 +107,21 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> getUserTasks(int id) {
-        User user = usersDao.findById(id).orElseThrow(() -> new NoSuchUserException());
-        return user.getTaskList();
+    public List<TaskDto> getUserTasks(int id) {
+        List<Task> taskList = tasksDao.findAllByUserId(id);
+        List<TaskDto> taskDtoList = new ArrayList<>();
+        for (Task task: taskList) {
+            TaskDto taskDto = TaskDto.builder()
+                    .id(task.getTaskId())
+                    .name(task.getName())
+                    .isDone(task.isDone())
+                    .userId(task.getUser().getId())
+                    .taskPriority(task.getTaskPriority())
+                    .fileName(task.getFileName())
+                    .build();
+            taskDtoList.add(taskDto);
+        }
+        return taskDtoList;
+
     }
 }

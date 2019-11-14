@@ -44,7 +44,7 @@ public class TaskController {
     }
 
     @GetMapping("/getUserTasks")
-    public List<Task> getUserTasks(int userId) {
+    public List<TaskDto> getUserTasks(int userId) {
         return  taskService.getUserTasks(userId);
     }
 
